@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+// FORCE LOGIN EVEN IF YOU HAVE ACCOUNT
+// Deletes old forever-login
+localStorage.removeItem('chester_logged');
+localStorage.removeItem('chester_admin');
+
+// Check SESSION only - not permanent storage
+if(!sessionStorage.getItem('chester_logged')){
+  window.location.href = 'login.html';
+}
+</script>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chester Logistics Pty Ltd - Moving Possibilities, Delivering Trust</title>
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f2f2;color:#333}
+
+/* GOLD NAVBAR TOP RIGHT */
+.navbar{
+  position:fixed;top:18px;right:18px;z-index:9999;
+  padding:8px 14px;background:linear-gradient(180deg,#d4a017,#a67c00);
+  border-radius:60px;box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  border:1px solid gold;
+}
+.navbar ul{display:flex;list-style:none;gap:2px;margin:0;padding:0;position:relative}
+.navbar ul li a{color:white;text-decoration:none;padding:10px 15px;display:block;font-size:13px;font-weight:bold;z-index:2;position:relative}
+.indicator{position:absolute;top:3px;height:calc(100% - 6px);background:rgba(0,0,0,0.25);border-radius:30px;transition:0.4s;z-index:1}
+
+/* BEAUTIFUL HOME HERO WITH BACKGROUND IMAGE */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:100px 20px 60px;
+  background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)),
+    url('https://secure-web.cisco.com/1m8bM9zcqH-7wAUyaZJm2fWDmJflACd4fdE2b10wYuU72gRgcOG9pEGGPLkunVb5YszSuq52PwcSIChaE55xTyniCbOhEQVrKQxILIp8HeLiyV4H3YRYlbzEWjvsYqOIb47OzUhbq-QOsodHE0QoA-ZJifwaM9vemkky-6zUPFXiC_sGMhlNKHWCbOBhsq4N_-ixVgDlY4_SxRrlrpYQNK-DFCH4tzfxxTbgayht7OnUSnA5NrUClIozCkuJRjxdSM0_o8XpTHCbwdZxImzAV3LpyuIObdggF1AvqVTTLFCPVjlsuns6BRAng3rVxx_JzXq3U_KxlKZ3Q7ml-dsia6w/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1586528116311-ad8dd3c8310d%3Fauto%3Dformat%26fit%3Dcrop%26w%3D1950%26q%3D80%27');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  color:white;
+  position:relative;
+}
+.hero h1{
+  font-size:52px;
+  margin:0;
+  font-weight:900;
+  letter-spacing:1px;
+  text-shadow:0 0 20px rgba(255,165,0,0.6), 0 0 40px rgba(255,165,0,0.3);
+  line-height:1.1;
+}
+.hero h1 span{
+  color:#ffcc00;
+  background: linear-gradient(90deg,#ffcc00,#ff9900);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero.sub{
+  margin-top:18px;
+  font-size:18px;
+  color:#e0e0e0;
+  max-width:700px;
+  line-height:1.6;
+}
+.hero.sub b{color:white}
+
+.hero-buttons{margin-top:35px;display:flex;gap:15px;flex-wrap:wrap;justify-content:center}
+.btn-quote{
+  background:linear-gradient(90deg,#ff5722,#ff8a50);
+  color:white;
+  padding:15px 32px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:16px;
+  box-shadow:0 0 20px rgba(255,87,34,0.6);
+  transition:0.3s;
+  border:none;
+}
+.btn-quote:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(255,87,34,0.9)}
+.btn-track{
+  background:transparent;
+  border:2px solid white;
+  color:white;
+  padding:13px 28px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:15px;
+  transition:0.3s;
+}
+.btn-track:hover{background:white;color:#111}
+.btn-call{
+  background:linear-gradient(90deg,#25D366,#128C7E);
+  color:white;
+  padding:15px 32px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:16px;
+  box-shadow:0 0 20px rgba(37,211,102,0.6);
+  transition:0.3s;
+}
+.btn-call:hover{transform:scale(1.05)}
+
+.stats{margin-top:40px;display:flex;gap:30px;flex-wrap:wrap;justify-content:center;color:#aaa;font-size:13px}
+.stats span{color:gold}
+
+/* REST OF SITE */
+.wrap{max-width:1100px;margin:auto;padding:30px 20px}
+.title{text-align:center;font-size:34px;color:#2c3e50;font-weight:bold;text-decoration:underline;margin:60px 0 30px}
+.about-card{background:white;padding:28px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);border-left:5px solid #ff7a3d;margin-bottom:22px}
+.about-card h3{color:#e67e4a;margin:0 0 15px;font-size:21px}
+.about-card p,.about-card li{color:#444;line-height:1.8;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.service-card{background:white;padding:22px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-left:4px solid #ff7043;transition:0.3s}
+.service-card:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+.service-card h3{color:#e65100;margin:0 0 10px}
+.service-card p{color:#666;font-size:14px;margin:0;line-height:1.6}
+.quote-box{background:linear-gradient(90deg,#e65100,#ff8a65);padding:45px 20px;border-radius:14px;text-align:center;color:white;margin:40px 0}
+.btn-white{background:white;color:#e65100;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin-top:15px}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:22px}
+.info-box{background:white;padding:22px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-left:4px solid #ff7043}
+.info-box h3{color:#d67a4a;margin:0 0 15px}
+.info-box p{color:#c06a3a;font-size:14px;margin:8px 0;word-break:break-all}
+.visit-box{background:white;padding:22px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border-left:4px solid #ff7043}
+.map{width:100%;height:430px;border:2px solid #ff7043;border-radius:10px;margin-top:10px}
+footer{background:#111;color:#888;padding:20px;text-align:center;font-size:13px}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="login.html" style="background:#000;color:white;border-radius:30px;padding:8px 18px;border:1px solid white;">Logout</a></li>
+    <div class="indicator"></div>
+  </ul>
+</nav>
+
+<!-- BEAUTIFUL HOME WITH BACKGROUND -->
+<div id="home" class="hero">
+  <h1>WELCOME TO <span>CHESTER LOGISTICS</span></h1>
+  <div class="sub">
+    Fast, Reliable, and Affordable Logistics Solutions across South Africa.<br>
+    <b>"Moving Possibilities, Delivering Trust."</b><br>
+    Based in Alexandra, Soweto, Tembisa - Delivering Nationwide with Toyota Hilux
+  </div>
+
+  <div class="hero-buttons">
+    <a class="btn-quote" href="#contact">📦 Get Free Quote</a>
+    <a class="btn-call" href="https://secure-web.cisco.com/1i4MGjlYiU34MDJpHkB3zmxOoHOUeXQ7Swc5yTQW7sepRx95McoxLYIp0zk-kKrt9vj9YWHuO4lYzUJrVlppYz6ywVK2fGCJTzP9WyXWMp0GMWB0zC4gEb52NcI5SVKxEeadnCH2O4OkoFlxAm0taovpTE7IBLIQeNCgs813VmLiMZf579T8YjjCK-3w8ybJtS02nd2wD3ZigoHZMo94QTr5KujiVCAKIpQZWuXTDue7zCOQahVvg24Fx5W6dUk98GT1l88IeGVYL7v3_7GrLSgGE_S9TjSoc9bxaXTrUiqnnlFB01TH2B9oTlmVa1SujLLw2XoNXSeoljctHrPIVxQ/https%3A%2F%2Fwa.me%2F27655812089%3Ftext%3DHi%2520Chester%2520I%2520need%2520a%2520delivery%2520quote%2520from%2520your%2520website">💬 WhatsApp Us</a>
+    <a class="btn-track" href="track.html">Track CHESTER-1001</a>
+  </div>
+
+  <div style="margin-top:20px">
+    <a class="btn-quote" href="tel:0655812089" style="background:linear-gradient(90deg,#1976d2,#42a5f5);box-shadow:0 0 20px rgba(25,118,210,0.6)">📞 Call Us Now - 065 581 2089</a>
+  </div>
+
+  <div class="stats">
+    <div><span>⭐</span> 100+ Deliveries</div>
+    <div><span>🚚</span> Same Day Delivery</div>
+    <div><span>📍</span> Soweto & Alexandra</div>
+    <div><span>💬</span> WhatsApp Tracking</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="wrap">
+  <h2 class="title">About Chester Logistics</h2>
+  <div class="about-card">
+    <h3>🏢 Our Background</h3>
+    <p>Chester Logistics was established with the vision of providing reliable, efficient, and customer-focused transportation and logistics services. Since its inception, the company has been dedicated to delivering goods safely and on time while maintaining the highest standards of professionalism and integrity.</p>
+    <p>Chester Logistics aims to meet the diverse needs of its clients through dependable service, innovative solutions, and a commitment to excellence. By prioritizing customer satisfaction and operational efficiency, the company continues to build strong relationships and contribute to the success of businesses and communities it serves.</p>
+  </div>
+  <div class="about-card">
+    <h3>🎯 Our Motivation</h3>
+    <p>At Chester Logistics, our motivation is driven by the belief that logistics is more than moving goods from one location to another. It is about helping businesses grow, supporting communities, and creating opportunities through dependable transportation services.</p>
+    <p><b>We are motivated by:</b></p>
+    <ul>
+      <li>Delivering customer satisfaction through reliable and on-time service</li>
+      <li>Building long-term relationships based on trust, transparency, and professionalism</li>
+      <li>Providing cost-effective logistics solutions tailored to each client's needs</li>
+      <li>Supporting business growth by ensuring goods reach their destinations safely and efficiently</li>
+      <li>Upholding our commitment to our slogan: "Moving Possibilities, Delivering Trust."</li>
+    </ul>
+    <p>Our goal is to become a leading logistics provider known for excellence, reliability, and unwavering dedication to our clients' success.</p>
+  </div>
+  <div class="quote-box">
+    <h2>Ready to work with us?</h2>
+    <p>Let's move your business forward together</p>
+    <a class="btn-white" href="#contact">Contact Us Today</a>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="services" class="wrap">
+  <h2 class="title">Our Services</h2>
+  <div class="grid">
+    <div class="service-card"><h3>📦 Local Deliveries</h3><p>Fast and reliable delivery of parcels, packages, and goods within your local area.</p></div>
+    <div class="service-card"><h3>🚛 Freight Transport</h3><p>Safe transportation of bulk goods and commercial cargo across South Africa.</p></div>
+    <div class="service-card"><h3>⚡ Same-Day Delivery</h3><p>Urgent deliveries completed on the same day to meet your business needs.</p></div>
+    <div class="service-card"><h3>🏢 Business Logistics Solutions</h3><p>Custom transportation and logistics services tailored for businesses of all sizes.</p></div>
+    <div class="service-card"><h3>📦 Courier Services</h3><p>Secure collection and delivery of documents, parcels, and valuable packages.</p></div>
+    <div class="service-card"><h3>🏭 Warehousing & Distribution</h3><p>Short-term storage and efficient distribution of goods to various destinations.</p></div>
+  </div>
+  <div class="quote-box">
+    <h2>Need a Quote?</h2>
+    <p>Contact us today for fast and affordable logistics solutions.</p>
+    <a class="btn-white" href="https://secure-web.cisco.com/1owRQBurr8cGmCy3Y7woCryRYNOn_8rVn_7yqnqABq4NSfTK5_Lt2VRF92rKogH73ooaaBXw4BYXyCpBqGNobCiqQ1VBMYTi4CEbos1qZXAFiFk3syeNjdoqWSSc-w8ORhkPYj7gcZdKbJzmJbVe725LlLV8hHCr0c0GQhg5Z6rDGaZCR418rIaeMqGWwlptBSX_69neIEWyL0aB9MPaM9dlnjwJH3JweuhIBud11fDnrJXCZIHs2X4kt6mTd9sIFyruY1hIxhcZWLTJEl89HgRTwaC0rfByZAmE9JAT46cRSVo91ieP3ritiNT1H2aEBBQl9OfGbdwChiI3QWWHxjQ/https%3A%2F%2Fwa.me%2F27655812089">Get in Touch</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="wrap">
+  <h2 class="title">Contact Chester Logistics</h2>
+  <div class="contact-grid">
+    <div class="info-box"><h3>📧 Email Us</h3><p>EMAIL: malulekchester24@gmail.com</p></div>
+    <div class="info-box"><h3>📱 Call Us</h3><p>CELL: 065 581 2089</p><p>OFFICE: 011 123 4567</p></div>
+    <div class="info-box"><h3>⏰ Working Hours</h3><p>Mon - Friday: 8AM - 5PM</p><p>Sat: 8AM - 1PM</p></div>
+  </div>
+  <div class="visit-box">
+    <h3>📍 Visit Us - Alexandra Plaza</h3>
+    <iframe class="map" src="https://secure-web.cisco.com/19H0yNejS8VjvHH1k4u100aPO2YfJPqP7fbd33B8Bs_ykrvqWYRyu6WVLtQeZvAB627dQa32DUtlMQvhoulLo_KnRAu7R0kTZqXp0mz8FZ4yQOjravkTiFfl9XQwXnybQ18obNKPj-5Ri7ogbYq6imP-38Uu8-TogSrJLG_OinlJtuPMM9-lpUtXGhpvyOxMIeq0KKd-YqVBPQ1h99-0fk26xPyFxmmD-UgxnQGHDVqqQZ1-D_n1Mdxin5vt8M7BqGnM8k-b8bRgyVwvqBKI39R8BNwg1GDt1PYIhs6iZVHlBiw0d0s6B4NMcz7aOUzxlDKK7nDXe7ENFDgdDeZgFEQ/https%3A%2F%2Fwww.google.com%2Fmaps%2Fembed%3Fpb%3D%211m18%211m12%211m3%211d3580.842%212d28.089%213d-26.104%212m3%211f0%212f0%213f0%213m2%211i1024%212i768%214f13.1%213m3%211m2%211s0x1e9572b5%253A0x0%212sPan%2520Africa%2520Shopping%2520Centre%215e0%213m2%211sen%212sza%214v1" allowfullscreen loading="lazy"></iframe>
+    <div style="padding:20px 0 5px">
+      <h3 style="color:#e65100">💬 Send a Message</h3>
+      <small>We reply within 24 hours</small><br><br>
+      <a href="https://secure-web.cisco.com/17jNLB-ygYxwNqbGyQX7uyiuTKvGN6tZAp7tb_o2JOF2WsHELmJPgFSymwtAjNfN0QHXf7M8UyptxLirN__MKsBUpi1w3KAaUb0Fgdjw6WedDQIId7MrymUGMoU4rZtKixE2ykrXEYPginjCpXisPq90b_XaAzPwyD0fiGWaIjt6xl3Tq71HkbD016oPHyuTgGjcy3kdd7KFB7Ilb7G88-xMwF9KDDKWFGS0vVHAHS7oor1Up4yjdrlIEtg0NE8uSBdg0CJUqHWMzwKiBBLKVNZneK2ig6skv00JrgK9ycnxODbP1VIQbUdHYc5GMhsNpdVmfXB9-eMz_fCc4JE3pfw/https%3A%2F%2Fwa.me%2F27655812089%3Ftext%3DHi%2520Chester" style="background:#25D366;color:white;padding:13px 22px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;margin-right:10px">WhatsApp Us Now</a>
+      <a href="tel:0655812089" style="background:#e65100;color:white;padding:13px 22px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block">Call Us Now</a>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Chester Logistics Pty Ltd. All Rights Reserved. - Moving Possibilities, Delivering Trust.</footer>
+
+<script>
+const links=document.querySelectorAll('.navbar ul li a');
+const indicator=document.querySelector('.indicator');
+function moveIndicator(el){
+  if(!el) return;
+  const r=el.getBoundingClientRect();
+  const ur=el.closest('ul').getBoundingClientRect();
+  indicator.style.width=r.width+'px';
+  indicator.style.left=(r.left-ur.left)+'px';
+}
+window.addEventListener('load',()=>moveIndicator(links[0]));
+links.forEach(l=>l.addEventListener('click',e=>{ if(e.target.hash) moveIndicator(e.target); }));
+window.addEventListener('scroll',()=>{
+  let cur=""; document.querySelectorAll('.wrap,.hero').forEach(s=>{ if(scrollY >= s.offsetTop-160) cur=s.id; });
+  links.forEach(a=>{ if(a.getAttribute('href')==="#"+cur) moveIndicator(a); });
+});
+</script>
+<script>
+// SECRET ADMIN SHORTCUT: Press Ctrl + Shift + A to open admin
+document.addEventListener('keydown', function(e){
+  if(e.ctrlKey && e.shiftKey && e.key === 'A'){
+    window.location.href='admin-login.html';
+  }
+});
+</script>
+
+
+</body>
+</html>

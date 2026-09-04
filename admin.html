@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Chester Logistics</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0a0a0a;color:white;display:flex;min-height:100vh}
+.sidebar{width:260px;background:#111;border-right:1px solid #222;position:fixed;height:100vh;padding:25px 15px}
+.sidebar h2{color:#d4a017;font-size:22px;text-align:center;letter-spacing:1px}
+.sidebar p{color:#555;font-size:11px;text-align:center;margin-bottom:25px;letter-spacing:2px}
+.menu{list-style:none}.menu li{margin:6px 0}
+.menu li a{display:flex;align-items:center;gap:10px;color:#888;text-decoration:none;padding:12px 15px;border-radius:10px;font-size:14px;transition:0.3s}
+.menu li a:hover,.menu li a.active{background:#d4a017;color:black;font-weight:bold}
+.menu li a.logout{background:#000;color:white;border:1px solid #d4a017;margin-top:20px}
+.menu li a.logout:hover{background:#d4a017;color:black}
+.main{margin-left:260px;flex:1;padding:25px 30px;background:#080808}
+.topbar{display:flex;justify-content:space-between;align-items:center;background:#111;border:1px solid #222;padding:15px 20px;border-radius:12px;margin-bottom:25px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:25px}
+.stat{background:#111;border:1px solid #222;border-radius:14px;padding:20px;border-left:4px solid #d4a017}
+.stat h3{color:#666;font-size:11px;letter-spacing:1px;margin-bottom:8px}
+.stat h2{font-size:26px;color:white}
+.grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:20px}
+.card{background:#111;border:1px solid #222;border-radius:14px;padding:20px}
+table{width:100%;border-collapse:collapse}
+th{color:#555;font-size:11px;text-align:left;padding:10px 8px;border-bottom:1px solid #222}
+td{font-size:13px;padding:12px 8px;border-bottom:1px solid #1a1a1a;color:#ccc}
+.badge{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:bold}
+.badge.gold{background:#d4a017;color:black}.badge.green{background:#1a3d2e;color:#2ecc71}.badge.blue{background:#1a2e4d;color:#4da3ff}
+.btn{padding:8px 14px;border-radius:8px;border:none;font-size:12px;font-weight:bold;cursor:pointer}
+.btn-gold{background:#d4a017;color:black}.btn-black{background:black;color:white;border:1px solid #333}
+@media(max-width:900px){.sidebar{width:100%;position:relative;height:auto}.main{margin-left:0}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+</style>
+<script>
+// 🔒 STRICT SUPER ADMIN LOCK
+let isAdmin = localStorage.getItem('chester_admin') || sessionStorage.getItem('chester_admin');
+let logged = localStorage.getItem('chester_logged');
+if(!isAdmin){
+  alert('⛔ Admin Access Only - Please login as Super Admin');
+  window.location.href='admin-login.html';
+}
+function adminLogout(){
+  localStorage.removeItem('chester_logged');
+  localStorage.removeItem('chester_admin');
+  sessionStorage.removeItem('chester_admin');
+  location.href='admin-login.html';
+}
+</script>
+</head>
+<body>
+<div class="sidebar">
+<h2>CHESTER LOGISTICS</h2><p>SUPER ADMIN</p>
+<ul class="menu">
+<li><a href="#" class="active">📊 Dashboard</a></li>
+<li><a href="#users">👥 Customers</a></li>
+<li><a href="#quotes">📦 Bookings</a></li>
+<li><a href="#tracking">📍 CHESTER-1001</a></li>
+<li><a href="https://secure-web.cisco.com/1JcsvaSPtI2mPsaMn4wMC9E97f3BEI4ga4JHlbN6C3yncbnlKHNH9MMW2jKJx6Qk02osuOx3rK-YTVJSKEYuZPaVDD2Cpr_gmoOsEzfLNWD0n3B9XIBXUkR94-oUtII0av_DLd5b-4h8rv_JE6WH4HaqWtMXEUG-zTycBbKOcx0fE_6BfsawbPARdfbMoo-KTXALBI3KUl5e_FzP4l1Bobx2xYHcavTNHQmb4g-JJVC3vTnwMkt857o3c75BxbGMMmn6gMAnEAueub4TtD9NYPsJbV1QE94mhZK1yEVeiSJxps-rNp1M9YhQKMCkXRxe1CQaMgoSfdiJJF4t4_AZjBuxtFx4rdLbNNPXgdBkh6jA/https%3A%2F%2Fwa.me%2F27655812089" target="_blank">💬 WhatsApp 065 581 2089</a></li>
+<li><a href="index.html">🌐 View Website</a></li>
+<li><a href="#" onclick="adminLogout()" class="logout">⬛ Logout - Black</a></li>
+</ul>
+<div style="margin-top:30px;padding:15px;background:#000;border-radius:10px;border:1px solid #222">
+<small style="color:#555">Logged as SUPER ADMIN</small><br>
+<b style="color:#d4a017;font-size:12px" id="adminEmail">admin</b><br>
+<small style="color:#2ecc71">● Secure Session</small>
+</div>
+</div>
+
+<div class="main">
+<div class="topbar">
+<div><h1>Welcome, Super Admin 👑</h1><span style="color:#888;font-size:12px" id="dateNow"></span></div>
+<div><button class="btn btn-gold" onclick="location.href='index.html'">View Site</button></div>
+</div>
+
+<div class="stats">
+<div class="stat"><h3>TOTAL CUSTOMERS</h3><h2 id="totalUsers">0</h2></div>
+<div class="stat" style="border-left-color:#2ecc71"><h3>TODAY QUOTES</h3><h2>24</h2></div>
+<div class="stat" style="border-left-color:#4da3ff"><h3>CHESTER-1001</h3><h2 style="font-size:18px">In Transit - Soweto</h2></div>
+<div class="stat" style="border-left-color:white"><h3>REVENUE</h3><h2>R 18,450</h2></div>
+</div>
+
+<div class="grid2">
+<div class="card" id="users">
+<h3>Customer Accounts</h3>
+<table><thead><tr><th>NAME</th><th>EMAIL</th><th>PHONE</th><th>ACTION</th></tr></thead><tbody id="usersTable"></tbody></table>
+</div>
+<div class="card">
+<h3>Admin Tools</h3>
+<div style="display:grid;gap:10px;margin-top:10px">
+<button class="btn btn-gold" style="padding:14px" onclick="window.open('https://secure-web.cisco.com/1JcsvaSPtI2mPsaMn4wMC9E97f3BEI4ga4JHlbN6C3yncbnlKHNH9MMW2jKJx6Qk02osuOx3rK-YTVJSKEYuZPaVDD2Cpr_gmoOsEzfLNWD0n3B9XIBXUkR94-oUtII0av_DLd5b-4h8rv_JE6WH4HaqWtMXEUG-zTycBbKOcx0fE_6BfsawbPARdfbMoo-KTXALBI3KUl5e_FzP4l1Bobx2xYHcavTNHQmb4g-JJVC3vTnwMkt857o3c75BxbGMMmn6gMAnEAueub4TtD9NYPsJbV1QE94mhZK1yEVeiSJxps-rNp1M9YhQKMCkXRxe1CQaMgoSfdiJJF4t4_AZjBuxtFx4rdLbNNPXgdBkh6jA/https%3A%2F%2Fwa.me%2F27655812089','_blank')">WhatsApp Orders - 065 581 2089</button>
+<button class="btn btn-black" style="padding:14px" onclick="alert('Tracking CHESTER-1001: Soweto Depot → Alexandra')">Track CHESTER-1001</button>
+<button class="btn btn-black" style="padding:14px" onclick="if(confirm('Clear all users?')){localStorage.removeItem('chester_users');location.reload()}">Clear Test Users</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+document.getElementById('adminEmail').innerText = localStorage.getItem('chester_logged') || 'admin';
+document.getElementById('dateNow').innerText = new Date().toLocaleString();
+let users = JSON.parse(localStorage.getItem('chester_users')||'[]');
+document.getElementById('totalUsers').innerText = users.length;
+let tbody = document.getElementById('usersTable');
+if(users.length===0){
+ tbody.innerHTML = `<tr><td>Chester Maluleke</td><td>malulekchester24@gmail.com</td><td>065 581 2089</td><td><span class="badge gold">Owner</span></td></tr>`;
+} else {
+ tbody.innerHTML = users.map(u=>`<tr><td>${u.fname||'Customer'}</td><td>${u.email}</td><td>${u.phone||'-'}</td><td><button class="btn btn-black" onclick="alert('${u.email}')">View</button></td></tr>`).join('');
+}
+</script>
+</body>
+</html>
